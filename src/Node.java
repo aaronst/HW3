@@ -117,4 +117,14 @@ public class Node {
     public boolean isOperation() {
         return LRLConstants.OPERATORS.contains(data);
     }
+    
+    /**
+     * Returns <code>true</code> if, and only if, the <code>Node</code>
+     * represents a print operation.
+     * @return <code>true</code> if the <code>Node</code> represents a
+     * print operation, otherwise <code>false</code>.
+     */
+    public boolean isPrint() {
+        return data.equals(LRLConstants.OPERATORS.get(LRLConstants.PRINT));
+    }
 }

@@ -19,12 +19,18 @@ import java.io.File;
  * @custom.due 2014-05-06 00:00
  */
 public class LRLTree {
-
+    
+    /**
+     * The beginning of the generated Java code.
+     */
+    private static String JAVA_HEAD = "public class JavaCode {\n"
+            + "    public static void main(String[] args) {\n";
+    
     /**
      * The root <code>Node</code> of the binary tree.
      */
     private Node root;
-
+    
     /**
      * Creates a binary tree to hold a series of reverse polish notation
      * operations as described in LRL.
@@ -58,7 +64,7 @@ public class LRLTree {
      * @return A Java code.
      */
     public String toJava() {
-        String java = LRLConstants.JAVA_HEAD;
+        String java = JAVA_HEAD;
 
         // TODO: write variable declarations
 
@@ -74,57 +80,56 @@ public class LRLTree {
      */
     private int evaluate(Node node) {
         
-        if (node.isInteger()) {
-            return Integer.parseInt(node.getData());
-        } else if (node.isVariable()) {
-            // TODO: return variable value
-        }
-        
         switch (node.getData()) {
-        case "+":
+        case Node.ADD:
             return evaluate(node.getLeft()) + evaluate(node.getRight());
-        case "-":
+        case Node.SUBTRACT:
             return evaluate(node.getLeft()) - evaluate(node.getRight());
-        case "*":
+        case Node.MULTIPLY:
             return evaluate(node.getLeft()) * evaluate(node.getRight());
-        case "/":
+        case Node.DIVIDE:
             return evaluate(node.getLeft()) / evaluate(node.getRight());
-        case "==":
+        case Node.EQUAL:
             if (evaluate(node.getLeft()) == evaluate(node.getRight())) {
                 return 1;
             } else {
                 return 0;
             }
-        case "<":
+        case Node.LESS_THAN:
             if (evaluate(node.getLeft()) < evaluate(node.getRight())) {
                 return 1;
             } else {
                 return 0;
             }
-        case "=":
+        case Node.ASSIGN:
             /* TODO assign variable
             assign(node.getLeft().getData(),
                     evaluate(node.getRight()));
             */
             return 0;
-        case "if":
+        case Node.IF:
             if (evaluate(node.getLeft()) == 1) {
                 evaluate(node.getRight());
             }
             return 0;
-        case "while":
+        case Node.WHILE:
             while (evaluate(node.getLeft()) == 1) {
                 evaluate(node.getRight());
             }
             return 0;
-        case "block":
+        case Node.BLOCK:
             evaluate(node.getLeft());
             evaluate(node.getRight());
             return 0;
-        case "print":
+        case Node.PRINT:
             System.out.println(evaluate(node.getLeft()));
             return 0;
-        default:
+        }
+        
+        try {
+            return Integer.parseInt(node.getData());
+        } catch (NumberFormatException exception) {
+            // TODO: return variable value
             return 0;
         }
     }

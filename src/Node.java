@@ -12,25 +12,80 @@
  * @custom.due 2014-05-07
  */
 public class Node {
+
+    /**
+     * The LRL addition operator.
+     */
+    public static final String ADD = "+";
     
+    /**
+     * The LRL subtraction operator.
+     */
+    public static final String SUBTRACT = "-";
+    
+    /**
+     * The LRL multiplication operator.
+     */
+    public static final String MULTIPLY = "*";
+    
+    /**
+     * The LRL division operator.
+     */
+    public static final String DIVIDE = "/";
+    
+    /**
+     * The LRL equality operator.
+     */
+    public static final String EQUAL = "==";
+    
+    /**
+     * The LRL inequality operator.
+     */
+    public static final String LESS_THAN = "<";
+    
+    /**
+     * The LRL assignment operator.
+     */
+    public static final String ASSIGN = "=";
+    
+    /**
+     * The LRL conditional operator.
+     */
+    public static final String IF = "if";
+    
+    /**
+     * The LRL loop operator.
+     */
+    public static final String WHILE = "while";
+    
+    /**
+     * The LRL block operator.
+     */
+    public static final String BLOCK = "block";
+    
+    /**
+     * The LRL print operator.
+     */
+    public static final String PRINT = "print"; 
+
     /**
      * The data contained in the <code>Node</code>. This must represent
      * either an operator, a variable, or an integer. 
      */
     private String data;
-    
+
     /**
      * The first subexpression.
      * May be <code>null</code> for integers or variables.
      */
     private Node left;
-    
+
     /**
      * The second operand of the expression.
      * May be <code>null</code> for integers, variables, or print operators.
      */
     private Node right;
-    
+
     /**
      * Creates a binary node representing an LRL expression.
      * @param data This must represent either an operator, a variable, or an
@@ -41,7 +96,7 @@ public class Node {
         setLeft(null);
         setRight(null);
     }
-    
+
     /**
      * Sets the data in the <code>Node</code>.
      * @param data This represents either an operator, a variable, or an
@@ -50,7 +105,7 @@ public class Node {
     public void setData(String data) {
         this.data = data;
     }
-    
+
     /**
      * Gets the data in the <code>Node</code>.
      * @return The data in the <code>Node</code>.
@@ -58,7 +113,7 @@ public class Node {
     public String getData() {
         return data;
     }
-    
+
     /**
      * Sets the first subexpression.
      * @param left The first subexpression.
@@ -66,7 +121,7 @@ public class Node {
     public void setLeft(Node left) {
         this.left = left;
     }
-    
+
     /**
      * Returns the first subexpression.
      * @return The first subexpression.
@@ -74,7 +129,7 @@ public class Node {
     public Node getLeft() {
         return left;
     }
-    
+
     /**
      * Sets the second subexpression.
      * @param right The second subexpression.
@@ -82,7 +137,7 @@ public class Node {
     public void setRight(Node right) {
         this.right = right;
     }
-    
+
     /**
      * Returns the second subexpression.
      * @return The second subexpression.
@@ -90,7 +145,7 @@ public class Node {
     public Node getRight() {
         return right;
     }
-    
+
     /**
      * Returns <code>true</code> if, and only if, the <code>Node</code>
      * represents an integer constant.
@@ -99,15 +154,15 @@ public class Node {
      */
     public boolean isInteger() {
         boolean result = false;
-        
+
         try {
             Integer.parseInt(data);
             result = true;
         } catch (NumberFormatException exception) {}
-        
+
         return result;
     }
-    
+
     /**
      * Returns <code>true</code> if, and only if, the <code>Node</code>
      * represents a variable.
@@ -117,7 +172,7 @@ public class Node {
     public boolean isVariable() {
         return !isOperation() && Character.isLetter(data.charAt(0));
     }
-    
+
     /**
      * Returns <code>true</code> if, and only if, the <code>Node</code>
      * represents an operation.
@@ -125,9 +180,24 @@ public class Node {
      * operation, otherwise <code>false</code>.
      */
     public boolean isOperation() {
-        return LRLConstants.OPERATORS.contains(data);
+        switch(data) {
+        case ADD:
+        case SUBTRACT:
+        case MULTIPLY:
+        case DIVIDE:
+        case EQUAL:
+        case LESS_THAN:
+        case ASSIGN:
+        case IF:
+        case WHILE:
+        case BLOCK:
+        case PRINT:
+            return true;
+        default:
+            return false;
+        }
     }
-    
+
     /**
      * Returns <code>true</code> if, and only if, the <code>Node</code>
      * represents a print operation.
@@ -135,6 +205,6 @@ public class Node {
      * print operation, otherwise <code>false</code>.
      */
     public boolean isPrint() {
-        return data.equals(LRLConstants.OPERATORS.get(LRLConstants.PRINT));
+        return data.equals(PRINT);
     }
 }

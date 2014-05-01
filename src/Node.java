@@ -91,7 +91,7 @@ public class Node {
      * @param data This must represent either an operator, a variable, or an
      * integer. 
      */
-    public Node(String data) {
+    public Node(final String data) {
         setData(data);
         setLeft(null);
         setRight(null);
@@ -102,7 +102,7 @@ public class Node {
      * @param data This represents either an operator, a variable, or an
      * integer. 
      */
-    public void setData(String data) {
+    public void setData(final String data) {
         this.data = data;
     }
 
@@ -118,7 +118,7 @@ public class Node {
      * Sets the first subexpression.
      * @param left The first subexpression.
      */
-    public void setLeft(Node left) {
+    public void setLeft(final Node left) {
         this.left = left;
     }
 
@@ -134,7 +134,7 @@ public class Node {
      * Sets the second subexpression.
      * @param right The second subexpression.
      */
-    public void setRight(Node right) {
+    public void setRight(final Node right) {
         this.right = right;
     }
 
@@ -156,7 +156,7 @@ public class Node {
         boolean result = false;
 
         try {
-            Integer.parseInt(data);
+            Integer.parseInt(getData());
             result = true;
         } catch (NumberFormatException exception) {}
 

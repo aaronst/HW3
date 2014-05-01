@@ -20,7 +20,7 @@ public class Node {
     private String data;
     
     /**
-     * The first operand of the expression.
+     * The first subexpression.
      * May be <code>null</code> for integers or variables.
      */
     private Node left;
@@ -31,15 +31,90 @@ public class Node {
      */
     private Node right;
     
+    /**
+     * Creates a binary node representing an LRL expression.
+     * @param data This must represent either an operator, a variable, or an
+     * integer. 
+     */
     public Node(String data) {
+        setData(data);
+        setLeft(null);
+        setRight(null);
+    }
+    
+    /**
+     * Sets the data in the <code>Node</code>.
+     * @param data This represents either an operator, a variable, or an
+     * integer. 
+     */
+    public void setData(String data) {
         this.data = data;
     }
     
-    protected void setLeft(Node left) {
+    /**
+     * Gets the data in the <code>Node</code>.
+     * @return The data in the <code>Node</code>.
+     */
+    public String getData() {
+        return data;
+    }
+    
+    /**
+     * Sets the first subexpression.
+     * @param left The first subexpression.
+     */
+    public void setLeft(Node left) {
         this.left = left;
     }
     
-    protected void setRight(Node right) {
+    /**
+     * Returns the first subexpression.
+     * @return The first subexpression.
+     */
+    public Node getLeft() {
+        return left;
+    }
+    
+    /**
+     * Sets the second subexpression.
+     * @param right The second subexpression.
+     */
+    public void setRight(Node right) {
         this.right = right;
+    }
+    
+    /**
+     * Returns the second subexpression.
+     * @return The second subexpression.
+     */
+    public Node getRight() {
+        return right;
+    }
+    
+    /**
+     * Returns <code>true</code> if, and only if, the <code>Node</code>
+     * represents an integer constant.
+     * @return <code>true</code> if the <code>Node</code> represents an
+     * integer constant, otherwise <code>false</code>.
+     */
+    public boolean isInteger() {
+        boolean result = false;
+        
+        try {
+            Integer.parseInt(data);
+            result = true;
+        } catch (NumberFormatException exception) {}
+        
+        return result;
+    }
+    
+    /**
+     * Returns <code>true</code> if, and only if, the <code>Node</code>
+     * represents an operation.
+     * @return <code>true</code> if the <code>Node</code> represents an
+     * operation, otherwise <code>false</code>.
+     */
+    public boolean isOperation() {
+        return LRLConstants.OPERATORS.contains(data);
     }
 }

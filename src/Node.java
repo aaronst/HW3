@@ -110,6 +110,16 @@ public class Node {
     
     /**
      * Returns <code>true</code> if, and only if, the <code>Node</code>
+     * represents a variable.
+     * @return <code>true</code> if the <code>Node</code> represents a
+     * variable, otherwise <code>false</code>.
+     */
+    public boolean isVariable() {
+        return !isOperation() && Character.isLetter(data.charAt(0));
+    }
+    
+    /**
+     * Returns <code>true</code> if, and only if, the <code>Node</code>
      * represents an operation.
      * @return <code>true</code> if the <code>Node</code> represents an
      * operation, otherwise <code>false</code>.

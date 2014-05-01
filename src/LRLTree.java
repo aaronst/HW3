@@ -73,14 +73,67 @@ public class LRLTree {
      * @return The evaluated value of the <code>Node</code>. 
      */
     private int evaluate(Node node) {
-        // TODO evaluate a node.
-        return 0;
+        
+        if (node.isInteger()) {
+            return Integer.parseInt(node.getData());
+        } else if (node.isVariable()) {
+            // TODO: return variable value
+        }
+        
+        switch (node.getData()) {
+        case "+":
+            return evaluate(node.getLeft()) + evaluate(node.getRight());
+        case "-":
+            return evaluate(node.getLeft()) - evaluate(node.getRight());
+        case "*":
+            return evaluate(node.getLeft()) * evaluate(node.getRight());
+        case "/":
+            return evaluate(node.getLeft()) / evaluate(node.getRight());
+        case "==":
+            if (evaluate(node.getLeft()) == evaluate(node.getRight())) {
+                return 1;
+            } else {
+                return 0;
+            }
+        case "<":
+            if (evaluate(node.getLeft()) < evaluate(node.getRight())) {
+                return 1;
+            } else {
+                return 0;
+            }
+        case "=":
+            /* TODO assign variable
+            assign(node.getLeft().getData(),
+                    evaluate(node.getRight()));
+            */
+            return 0;
+        case "if":
+            if (evaluate(node.getLeft()) == 1) {
+                evaluate(node.getRight());
+            }
+            return 0;
+        case "while":
+            while (evaluate(node.getLeft()) == 1) {
+                evaluate(node.getRight());
+            }
+            return 0;
+        case "block":
+            evaluate(node.getLeft());
+            evaluate(node.getRight());
+            return 0;
+        case "print":
+            System.out.println(evaluate(node.getLeft()));
+            return 0;
+        default:
+            return 0;
+        }
     }
 
     /**
-     * 
-     * @param node
-     * @return
+     * Creates a string of LRL code representing the operations described
+     * in the <code>Node</code>
+     * @param node The <code>Node</code> to be converted.
+     * @return The LRL code.
      */
     private String toLRL(Node node) {
         String lrl;

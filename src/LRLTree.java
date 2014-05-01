@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.io.File;
 
 /**
@@ -19,18 +18,18 @@ import java.io.File;
  * @custom.due 2014-05-06 00:00
  */
 public class LRLTree {
-    
+
     /**
      * The beginning of the generated Java code.
      */
     private static String JAVA_HEAD = "public class JavaCode {\n"
             + "    public static void main(String[] args) {\n";
-    
+
     /**
      * The root <code>Node</code> of the binary tree.
      */
     private Node root;
-    
+
     /**
      * Creates a binary tree to hold a series of reverse polish notation
      * operations as described in LRL.
@@ -68,7 +67,7 @@ public class LRLTree {
 
         // TODO: write variable declarations
 
-        // TODO: write Java code
+        java += toJava(root) + "}";
 
         return java;
     }
@@ -79,7 +78,7 @@ public class LRLTree {
      * @return The evaluated value of the <code>Node</code>. 
      */
     private int evaluate(Node node) {
-        
+
         switch (node.getData()) {
         case Node.ADD:
             return evaluate(node.getLeft()) + evaluate(node.getRight());
@@ -105,7 +104,7 @@ public class LRLTree {
             /* TODO assign variable
             assign(node.getLeft().getData(),
                     evaluate(node.getRight()));
-            */
+             */
             return 0;
         case Node.IF:
             if (evaluate(node.getLeft()) == 1) {
@@ -125,7 +124,7 @@ public class LRLTree {
             System.out.println(evaluate(node.getLeft()));
             return 0;
         }
-        
+
         try {
             return Integer.parseInt(node.getData());
         } catch (NumberFormatException exception) {
@@ -146,12 +145,66 @@ public class LRLTree {
         if (node.isOperation()) {
             lrl = "( " + node.getData() + " " + toLRL(node.getLeft()) + " ";
             if (!node.isPrint())
-                lrl += toLRL(node.getRight());
-            lrl += " )";
+                lrl += toLRL(node.getRight()) + " ";
+            lrl += ")";
         } else {
             lrl = node.getData();
         }
 
         return lrl;
+    }
+
+    /**
+     * Creates Java code corresponding the the operations described in the
+     * </code>Node</code>
+     * @param node The <code>Node</code> being translated.
+     * @return The Java code.
+     */
+    private String toJava(Node node) {
+        String java;
+
+        switch (node.getData()) {
+        case Node.ADD:
+        case Node.SUBTRACT:
+        case Node.MULTIPLY:
+        case Node.DIVIDE:
+        case Node.ASSIGN:
+            
+            java = toJava(node.getLeft()) + " "
+                    + node.getData() + " "
+                    + node.getRight() + ";\n";
+            break;
+            
+        case Node.EQUAL:
+        case Node.LESS_THAN:
+            
+            java = toJava(node.getLeft()) + " "
+                    + node.getData() + " "
+                    + node.getRight();
+            break;
+            
+        case Node.IF:
+        case Node.WHILE:
+            
+            java = node.getData() + " ("
+                    + toJava(node.getLeft()) + ") {\n"
+                    + toJava(node.getRight()) + "\n}\n";
+            break;
+            
+        case Node.BLOCK:
+            
+            java = toJava(node.getLeft()) + toJava(node.getRight());
+            break;
+            
+        case Node.PRINT:
+            
+            java = "System.out.println(" + toJava(node.getLeft()) + ");";
+            break;
+            
+        default:    // constant or variable
+            
+            java = node.getData();
+        }
+        return java;
     }
 }

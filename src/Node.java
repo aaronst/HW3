@@ -207,4 +207,80 @@ public class Node {
     public boolean isPrint() {
         return data.equals(PRINT);
     }
+    
+    /**
+     * Creates Java code corresponding the the operations described in the
+     * </code>Node</code>
+     * @return The Java code.
+     */
+    public String toJava() {
+        String java;
+
+        switch (getData()) {
+        case Node.ADD:
+        case Node.SUBTRACT:
+        case Node.MULTIPLY:
+        case Node.DIVIDE:
+        case Node.ASSIGN:
+
+            java = getLeft().toJava() + " "
+                    + getData() + " "
+                    + getRight().toJava() + ";\n";
+            break;
+
+        case Node.EQUAL:
+        case Node.LESS_THAN:
+
+            java = getLeft().toJava() + " "
+                    + getData() + " "
+                    + getRight().toJava();
+            break;
+
+        case Node.IF:
+        case Node.WHILE:
+
+            java = getData() + " ("
+                    + getLeft().toJava() + ") {\n"
+                    + getRight().toJava() + "\n}\n";
+            break;
+
+        case Node.BLOCK:
+
+            java = getLeft().toJava() + getRight().toJava();
+            break;
+
+        case Node.PRINT:
+
+            java = "System.out.println(" + getLeft().toJava() + ");";
+            break;
+
+        default:    // constant or variable
+
+            java = getData();
+        }
+
+        return java;
+    }
+    
+    /**
+     * Creates a string of LRL code representing the operations described
+     * in the <code>Node</code>.
+     * @return The LRL code.
+     */
+    public String toLRL() {
+        String lrl;
+
+        if (isPrint()) {
+            lrl = "( " + getData() + " "
+                    + getLeft().toLRL() + " )";
+        } else if (isOperation()) {
+            lrl = "( " + getData() + " "
+                    + getLeft().toLRL() + " "
+                    + getRight().toLRL() + " )";
+        } else {
+            lrl = getData();
+        }
+
+        return lrl;
+    }
 }

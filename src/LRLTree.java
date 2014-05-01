@@ -54,7 +54,7 @@ public class LRLTree {
      * @return The LRL code.
      */
     public String toLRL() {
-        return toLRL(root);
+        return root.toLRL();
     }
 
     /**
@@ -67,7 +67,7 @@ public class LRLTree {
 
         // TODO: write variable declarations
 
-        java += toJava(root) + "}";
+        java += root.toJava() + "}";
 
         return java;
     }
@@ -101,42 +101,42 @@ public class LRLTree {
                 return 1;
             }
             return 0;
-            
+
         case Node.LESS_THAN:
-            
+
             if (evaluate(node.getLeft()) < evaluate(node.getRight())) {
                 return 1;
             }
             return 0;
-            
+
         case Node.ASSIGN:
-            
+
             setValue(node.getLeft().getData(),
                     evaluate(node.getRight()));
             return 0;
-            
+
         case Node.IF:
-            
+
             if (evaluate(node.getLeft()) == 1) {
                 evaluate(node.getRight());
             }
             return 0;
-            
+
         case Node.WHILE:
-            
+
             while (evaluate(node.getLeft()) == 1) {
                 evaluate(node.getRight());
             }
             return 0;
-            
+
         case Node.BLOCK:
-            
+
             evaluate(node.getLeft());
             evaluate(node.getRight());
             return 0;
-            
+
         case Node.PRINT:
-            
+
             System.out.println(evaluate(node.getLeft()));
             return 0;
         }
@@ -149,82 +149,6 @@ public class LRLTree {
     }
 
     /**
-     * Creates a string of LRL code representing the operations described
-     * in the <code>Node</code>
-     * @param node The <code>Node</code> to be converted.
-     * @return The LRL code.
-     */
-    private String toLRL(Node node) {
-        String lrl;
-
-        if (node.isOperation()) {
-            lrl = "( " + node.getData() + " " + toLRL(node.getLeft()) + " ";
-            if (!node.isPrint())
-                lrl += toLRL(node.getRight()) + " ";
-            lrl += ")";
-        } else {
-            lrl = node.getData();
-        }
-
-        return lrl;
-    }
-
-    /**
-     * Creates Java code corresponding the the operations described in the
-     * </code>Node</code>
-     * @param node The <code>Node</code> being translated.
-     * @return The Java code.
-     */
-    private String toJava(Node node) {
-        String java;
-
-        switch (node.getData()) {
-        case Node.ADD:
-        case Node.SUBTRACT:
-        case Node.MULTIPLY:
-        case Node.DIVIDE:
-        case Node.ASSIGN:
-
-            java = toJava(node.getLeft()) + " "
-                    + node.getData() + " "
-                    + node.getRight() + ";\n";
-            break;
-
-        case Node.EQUAL:
-        case Node.LESS_THAN:
-
-            java = toJava(node.getLeft()) + " "
-                    + node.getData() + " "
-                    + node.getRight();
-            break;
-
-        case Node.IF:
-        case Node.WHILE:
-
-            java = node.getData() + " ("
-                    + toJava(node.getLeft()) + ") {\n"
-                    + toJava(node.getRight()) + "\n}\n";
-            break;
-
-        case Node.BLOCK:
-
-            java = toJava(node.getLeft()) + toJava(node.getRight());
-            break;
-
-        case Node.PRINT:
-
-            java = "System.out.println(" + toJava(node.getLeft()) + ");";
-            break;
-
-        default:    // constant or variable
-
-            java = node.getData();
-        }
-        
-        return java;
-    }
-
-    /**
      * Sets the value of the given LRL variable.
      * @param name The name of the variable.
      * @param value The value to be set, 
@@ -232,7 +156,7 @@ public class LRLTree {
     private void setValue(String name, int value) {
         // TODO assign variable value
     }
-    
+
     /**
      * Gets the value of the given LRL variable.
      * @param name The name of the variable.

@@ -2,7 +2,7 @@
  * A node for the LRL binary tree structure.
  * Each node represents a (sub)expression within an LRL program.
  * 
- * @custom.assign 
+ * @custom.assign Binary Trees: LRL
  * @author Chad Condon
  * @author Aaron Stephens
  * @version 0.1
@@ -66,7 +66,7 @@ public class Node {
     /**
      * The LRL print operator.
      */
-    public static final String PRINT = "print"; 
+    public static final String PRINT = "print";
 
     /**
      * The data contained in the <code>Node</code>. This must represent
@@ -180,6 +180,7 @@ public class Node {
      * operation, otherwise <code>false</code>.
      */
     public boolean isOperation() {
+        
         switch(data) {
         case ADD:
         case SUBTRACT:
@@ -192,8 +193,11 @@ public class Node {
         case WHILE:
         case BLOCK:
         case PRINT:
+            
             return true;
+            
         default:
+            
             return false;
         }
     }
@@ -251,7 +255,7 @@ public class Node {
 
         case Node.PRINT:
 
-            java = "System.out.println(" + getLeft().toJava() + ");";
+            java = "System.out.println(" + getLeft().toJava() + ");\n";
             break;
 
         default:    // constant or variable
@@ -271,14 +275,20 @@ public class Node {
         String lrl;
 
         if (isPrint()) {
+            
             lrl = "( " + getData() + " "
                     + getLeft().toLRL() + " )";
+            
         } else if (isOperation()) {
+            
             lrl = "( " + getData() + " "
                     + getLeft().toLRL() + " "
                     + getRight().toLRL() + " )";
+            
         } else {
+            
             lrl = getData();
+            
         }
 
         return lrl;

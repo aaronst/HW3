@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.List;
 
 /**
  * A binary tree structure to hold a series of reverse polish notation
@@ -15,7 +16,7 @@ import java.io.File;
  * 
  * @custom.instruct John Mayer, Ph.D.
  * @custom.course TCSS 342 Data Structures Spring 2014
- * @custom.due 2014-05-06 00:00
+ * @custom.due 2014-05-07
  */
 public class LRLTree {
 
@@ -37,6 +38,7 @@ public class LRLTree {
      */
     public LRLTree(File source) {
         // TODO write constructor using a recursive loadNode() method
+        List<String> code = loadCode(source);
     }
 
     /**
@@ -65,7 +67,7 @@ public class LRLTree {
     public String toJava() {
         String java = JAVA_HEAD;
 
-        // TODO: write variable declarations
+        // TODO write variable declarations
 
         java += root.toJava() + "}";
 
@@ -165,5 +167,15 @@ public class LRLTree {
     private int getValue(String name) {
         // TODO retrieve variable value
         return 0;
+    }
+    
+    /**
+     * Creates a <code>List</code> of LRL commands contained in a source
+     * <code>File</code>.
+     * @param file The LRL source.
+     * @return A <code>List</code> of LRL commands.
+     */
+    private List<String> loadCode(File file) {
+        return null;
     }
 }

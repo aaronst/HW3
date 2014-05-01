@@ -81,46 +81,62 @@ public class LRLTree {
 
         switch (node.getData()) {
         case Node.ADD:
+
             return evaluate(node.getLeft()) + evaluate(node.getRight());
+
         case Node.SUBTRACT:
+
             return evaluate(node.getLeft()) - evaluate(node.getRight());
+
         case Node.MULTIPLY:
+
             return evaluate(node.getLeft()) * evaluate(node.getRight());
         case Node.DIVIDE:
+
             return evaluate(node.getLeft()) / evaluate(node.getRight());
+
         case Node.EQUAL:
+
             if (evaluate(node.getLeft()) == evaluate(node.getRight())) {
                 return 1;
-            } else {
-                return 0;
             }
+            return 0;
+            
         case Node.LESS_THAN:
+            
             if (evaluate(node.getLeft()) < evaluate(node.getRight())) {
                 return 1;
-            } else {
-                return 0;
             }
-        case Node.ASSIGN:
-            /* TODO assign variable
-            assign(node.getLeft().getData(),
-                    evaluate(node.getRight()));
-             */
             return 0;
+            
+        case Node.ASSIGN:
+            
+            setValue(node.getLeft().getData(),
+                    evaluate(node.getRight()));
+            return 0;
+            
         case Node.IF:
+            
             if (evaluate(node.getLeft()) == 1) {
                 evaluate(node.getRight());
             }
             return 0;
+            
         case Node.WHILE:
+            
             while (evaluate(node.getLeft()) == 1) {
                 evaluate(node.getRight());
             }
             return 0;
+            
         case Node.BLOCK:
+            
             evaluate(node.getLeft());
             evaluate(node.getRight());
             return 0;
+            
         case Node.PRINT:
+            
             System.out.println(evaluate(node.getLeft()));
             return 0;
         }
@@ -128,8 +144,7 @@ public class LRLTree {
         try {
             return Integer.parseInt(node.getData());
         } catch (NumberFormatException exception) {
-            // TODO: return variable value
-            return 0;
+            return getValue(node.getData());
         }
     }
 
@@ -169,42 +184,62 @@ public class LRLTree {
         case Node.MULTIPLY:
         case Node.DIVIDE:
         case Node.ASSIGN:
-            
+
             java = toJava(node.getLeft()) + " "
                     + node.getData() + " "
                     + node.getRight() + ";\n";
             break;
-            
+
         case Node.EQUAL:
         case Node.LESS_THAN:
-            
+
             java = toJava(node.getLeft()) + " "
                     + node.getData() + " "
                     + node.getRight();
             break;
-            
+
         case Node.IF:
         case Node.WHILE:
-            
+
             java = node.getData() + " ("
                     + toJava(node.getLeft()) + ") {\n"
                     + toJava(node.getRight()) + "\n}\n";
             break;
-            
+
         case Node.BLOCK:
-            
+
             java = toJava(node.getLeft()) + toJava(node.getRight());
             break;
-            
+
         case Node.PRINT:
-            
+
             java = "System.out.println(" + toJava(node.getLeft()) + ");";
             break;
-            
+
         default:    // constant or variable
-            
+
             java = node.getData();
         }
+        
         return java;
+    }
+
+    /**
+     * Sets the value of the given LRL variable.
+     * @param name The name of the variable.
+     * @param value The value to be set, 
+     */
+    private void setValue(String name, int value) {
+        // TODO assign variable value
+    }
+    
+    /**
+     * Gets the value of the given LRL variable.
+     * @param name The name of the variable.
+     * @return The value of the variable.
+     */
+    private int getValue(String name) {
+        // TODO retrieve variable value
+        return 0;
     }
 }

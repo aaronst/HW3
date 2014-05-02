@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -34,6 +36,11 @@ public class LRLTree {
     private Node root;
 
     /**
+     * The HashMap containing all of the variables their values.
+     */
+    private Map<String, Integer> environment;
+
+    /**
      * Creates a binary tree to hold a series of reverse polish notation
      * operations as described in LRL.
      * @param source plain text file containing the LRL source code
@@ -42,6 +49,8 @@ public class LRLTree {
     public LRLTree(final File source) throws FileNotFoundException {
         root = new Node(null);
         List<String> code = loadCode(source);
+        environment = new HashMap<String, Integer>();
+        loadEnvironment(root);
         loadNode(root, code);
     }
 
@@ -79,6 +88,27 @@ public class LRLTree {
     }
 
     /**
+     * Creates a <code>HashMap</code> from the Binary Tree that contains
+     * all the variables and their values.
+     */
+    private void loadEnvironment(Node current) {
+        // TODO figure this out...
+        switch (current.getData()) {
+            case Node.ASSIGN:
+                environment.put(current.getLeft().getData(), evaluate(current.getRight()));
+
+            default:
+                if (current.getLeft() != null) {
+                    loadEnvironment(current.getLeft());
+                }
+
+                if (current.getRight() != null) {
+                    loadEnvironment(current.getRight());
+                }
+        }
+    }
+
+    /**
      * Executes the operations contained in the given <code>Node</code> and
      * returns the evaluated value.
      * @return evaluated value of the <code>Node</code>
@@ -97,6 +127,7 @@ public class LRLTree {
         case Node.MULTIPLY:
 
             return evaluate(node.getLeft()) * evaluate(node.getRight());
+
         case Node.DIVIDE:
 
             return evaluate(node.getLeft()) / evaluate(node.getRight());

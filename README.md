@@ -6,4 +6,4 @@ Authors:
 - Chad Condon
 
 Description:
-Converting LRL to Java using a Binary Search Tree
+Converting LRL to Java using a Binary Tree

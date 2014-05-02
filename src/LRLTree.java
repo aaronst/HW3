@@ -92,19 +92,15 @@ public class LRLTree {
      * all the variables and their values.
      */
     private void loadEnvironment(Node current) {
-        // TODO figure this out...
-        switch (current.getData()) {
-            case Node.ASSIGN:
-                environment.put(current.getLeft().getData(), evaluate(current.getRight()));
 
-            default:
-                if (current.getLeft() != null) {
-                    loadEnvironment(current.getLeft());
-                }
-
-                if (current.getRight() != null) {
-                    loadEnvironment(current.getRight());
-                }
+        if (current.getData().equals("=")) {
+            environment.put(current.getLeft().getData(), 0);
+            loadEnvironment(current.getRight());
+        } else if (current.isOperation()) {
+            loadEnvironment(current.getLeft());
+            if (!current.isPrint()) {
+                loadEnvironment(current.getRight());
+            }
         }
     }
 

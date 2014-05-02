@@ -30,13 +30,16 @@ public class LRLTree {
      */
     private static final String JAVA_HEAD = "public class JavaCode {\n"
             + "    public static void main(String[] args) {\n";
+
+    private static final String INT_DECLARE = "int ";
+
     /**
      * The root <code>Node</code> of the binary tree.
      */
     private Node root;
 
     /**
-     * The HashMap containing all of the variables their values.
+     * The <code>Map</code> containing all of the variables their values.
      */
     private Map<String, Integer> environment;
 
@@ -48,8 +51,9 @@ public class LRLTree {
      */
     public LRLTree(final File source) throws FileNotFoundException {
         root = new Node(null);
+        environment = new HashMap<>();
         List<String> code = loadCode(source);
-        environment = new HashMap<String, Integer>();
+
         loadEnvironment(root);
         loadNode(root, code);
     }
@@ -81,7 +85,6 @@ public class LRLTree {
         String java = JAVA_HEAD;
 
         java += javaDeclarations();
-
         java += root.toJava() + "}";
 
         return java;
@@ -92,8 +95,7 @@ public class LRLTree {
      * all the variables and their values.
      */
     private void loadEnvironment(Node current) {
-
-        if (current.getData().equals("=")) {
+        if (current.getData().equals(Node.ASSIGN)) {
             environment.put(current.getLeft().getData(), 0);
             loadEnvironment(current.getRight());
         } else if (current.isOperation()) {
@@ -110,70 +112,47 @@ public class LRLTree {
      * @return evaluated value of the <code>Node</code>
      */
     private int evaluate(final Node node) {
-
         switch (node.getData()) {
         case Node.ADD:
-
             return evaluate(node.getLeft()) + evaluate(node.getRight());
-
         case Node.SUBTRACT:
-
             return evaluate(node.getLeft()) - evaluate(node.getRight());
-
         case Node.MULTIPLY:
-
             return evaluate(node.getLeft()) * evaluate(node.getRight());
-
         case Node.DIVIDE:
-
             return evaluate(node.getLeft()) / evaluate(node.getRight());
-
         case Node.EQUAL:
-
             if (evaluate(node.getLeft()) == evaluate(node.getRight())) {
                 return 1;
             }
             return 0;
-
         case Node.LESS_THAN:
-
             if (evaluate(node.getLeft()) < evaluate(node.getRight())) {
                 return 1;
             }
             return 0;
-
         case Node.ASSIGN:
-
             setVariable(node.getLeft().getData(),
                     evaluate(node.getRight()));
             return 0;
-
         case Node.IF:
-
             if (evaluate(node.getLeft()) == 1) {
                 evaluate(node.getRight());
             }
             return 0;
-
         case Node.WHILE:
-
             while (evaluate(node.getLeft()) == 1) {
                 evaluate(node.getRight());
             }
             return 0;
-
         case Node.BLOCK:
-
             evaluate(node.getLeft());
             evaluate(node.getRight());
             return 0;
-
         case Node.PRINT:
-
             System.out.println(evaluate(node.getLeft()));
             return 0;
         }
-
         try {
             return Integer.parseInt(node.getData());
         } catch (NumberFormatException exception) {
@@ -214,7 +193,6 @@ public class LRLTree {
         while (scanner.hasNext()) {
             code.add(scanner.next());
         }
-
         scanner.close();
 
         return code;
@@ -231,12 +209,9 @@ public class LRLTree {
         if (code.get(0).equals("(")) {
             code.remove(0);
         }
-
         node = new Node(code.get(0));
         code.remove(0);
-
         splitIndex = getSplitIndex(code);
-
         if (node.isOperation()) {
             loadNode(node.getLeft(),code.subList(0, splitIndex));
             if (!node.isPrint()) {
@@ -282,7 +257,7 @@ public class LRLTree {
 
         if (!environment.isEmpty()) {
             for (String variable : environment.keySet()) {
-                declarations += "int " + variable + ";\n";
+                declarations += INT_DECLARE + variable + ";\n";
             }
         }
 

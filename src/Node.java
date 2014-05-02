@@ -182,7 +182,6 @@ public class Node {
      * operation, otherwise <code>false</code>.
      */
     public boolean isOperation() {
-        
         switch(data) {
         case ADD:
         case SUBTRACT:
@@ -195,13 +194,10 @@ public class Node {
         case WHILE:
         case BLOCK:
         case PRINT:
-            
             return true;
-            
-        default:
-            
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -228,40 +224,29 @@ public class Node {
         case Node.MULTIPLY:
         case Node.DIVIDE:
         case Node.ASSIGN:
-
             java = getLeft().toJava() + " "
                     + getData() + " "
                     + getRight().toJava() + ";\n";
             break;
-
         case Node.EQUAL:
         case Node.LESS_THAN:
-
             java = getLeft().toJava() + " "
                     + getData() + " "
                     + getRight().toJava();
             break;
-
         case Node.IF:
         case Node.WHILE:
-
             java = getData() + " ("
                     + getLeft().toJava() + ") {\n"
                     + getRight().toJava() + "\n}\n";
             break;
-
         case Node.BLOCK:
-
             java = getLeft().toJava() + getRight().toJava();
             break;
-
         case Node.PRINT:
-
             java = "System.out.println(" + getLeft().toJava() + ");\n";
             break;
-
         default:    // constant or variable
-
             java = getData();
         }
 
@@ -277,20 +262,12 @@ public class Node {
         String lrl;
 
         if (isPrint()) {
-            
-            lrl = "( " + getData() + " "
-                    + getLeft().toLRL() + " )";
-            
+            lrl = "( " + getData() + " " + getLeft().toLRL() + " )";
         } else if (isOperation()) {
-            
-            lrl = "( " + getData() + " "
-                    + getLeft().toLRL() + " "
-                    + getRight().toLRL() + " )";
-            
+            lrl = "( " + getData() + " " + getLeft().toLRL()
+                    + " " + getRight().toLRL() + " )";
         } else {
-            
             lrl = getData();
-            
         }
 
         return lrl;

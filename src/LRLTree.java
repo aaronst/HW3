@@ -80,7 +80,7 @@ public class LRLTree {
     public String toJava() {
         String java = JAVA_HEAD;
 
-        // TODO write variable declarations
+        java += javaDeclarations();
 
         java += root.toJava() + "}";
 
@@ -144,7 +144,7 @@ public class LRLTree {
 
         case Node.ASSIGN:
 
-            setValue(node.getLeft().getData(),
+            setVariable(node.getLeft().getData(),
                     evaluate(node.getRight()));
             return 0;
 
@@ -177,7 +177,7 @@ public class LRLTree {
         try {
             return Integer.parseInt(node.getData());
         } catch (NumberFormatException exception) {
-            return getValue(node.getData());
+            return getVariable(node.getData());
         }
     }
 
@@ -186,8 +186,8 @@ public class LRLTree {
      * @param name The name of the variable.
      * @param value The value to be set, 
      */
-    private void setValue(final String name, final int value) {
-        // TODO assign variable value
+    private void setVariable(final String name, final int value) {
+        environment.put(name, value);
     }
 
     /**
@@ -195,9 +195,8 @@ public class LRLTree {
      * @param name The name of the variable.
      * @return variable value
      */
-    private int getValue(final String name) {
-        // TODO retrieve variable value
-        return 0;
+    private int getVariable(final String name) {
+        return environment.get(name);
     }
 
     /**
@@ -209,7 +208,7 @@ public class LRLTree {
      */
     private List<String> loadCode(final File file)
             throws FileNotFoundException {
-        List<String> code = new LinkedList<String>();
+        List<String> code = new LinkedList<>();
         final Scanner scanner = new Scanner(file);
 
         while (scanner.hasNext()) {
@@ -271,5 +270,22 @@ public class LRLTree {
         }
         
         return index;
+    }
+
+    /**
+     * Generates the Java code to declare all variables in the LRL code.
+     *
+     * @return Java declarations
+     */
+    private String javaDeclarations() {
+        String declarations = "";
+
+        if (!environment.isEmpty()) {
+            for (String variable : environment.keySet()) {
+                declarations += "int " + variable + ";\n";
+            }
+        }
+
+        return declarations;
     }
 }

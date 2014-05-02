@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * <code>LRLTree</code> test runner.
@@ -14,7 +15,19 @@ import java.io.File;
  */
 public class HW3 {
     
-    public static void main(String[] args) {
-        LRLTree tree = new LRLTree(new File(null));
+    public static void main(String[] args) throws FileNotFoundException {
+
+        System.out.println("Aaron Stephens & Chad Condon - Homework 3");
+        // The file chosen can be changed out with any of the others
+        LRLTree tree = new LRLTree(new File("misc.txt"));
+
+        System.out.println("\n====The LRL Code====\n");
+        System.out.println(tree.toLRL());
+
+        System.out.println("\n====The Java Code====\n");
+        System.out.println(tree.toJava());
+
+        System.out.println("\n====The Evaluation====");
+        System.out.println(tree.evaluate());
     }
 }

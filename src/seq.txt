@@ -1,0 +1,22 @@
+( block
+   ( block
+       ( block
+           ( = a ( + ( * 3 7 ) ( / 700 20 ) ) )
+           ( = b ( * a ( - a 1 ) ) )
+       )
+       ( block
+           ( print a )
+           ( print b )
+       )
+   )
+   ( block
+       ( block
+           ( = c ( + ( * 4 5 ) ( + ( * 2 3 ) ( * 7 6 ) ) ) )
+           ( = d ( / 500 ( - 60 54 ) ) )
+       )
+       ( block
+           ( print c   )
+           ( print d   )
+       )   
+   )
+)

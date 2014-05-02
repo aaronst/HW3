@@ -153,12 +153,14 @@ public class Node {
      * integer constant, otherwise <code>false</code>.
      */
     public boolean isInteger() {
-        boolean result = false;
+        boolean result;
 
         try {
             Integer.parseInt(getData());
             result = true;
-        } catch (NumberFormatException exception) {}
+        } catch (NumberFormatException exception) {
+            result = false;
+        }
 
         return result;
     }

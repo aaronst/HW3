@@ -1,12 +1,20 @@
+import java.io.File;
+
 /**
- * Created by Aaron on 4/30/2014.
+ * <code>LRLTree</code> test runner.
+ *
+ * @custom.assign Binary Trees: LRL
+ * @author Chad Condon
+ * @author Aaron Stephens
+ * @version 0.1
+ *
+ * @custom.instruct John Mayer, Ph.D.
+ * @custom.course TCSS 342 Data Structures Spring 2014
+ * @custom.due 2014-05-07
  */
 public class HW3 {
     
-    // This is a super awesome test of github changes.
-    
     public static void main(String[] args) {
-        System.out.println("OVERWRITE ME I DARE YOU");
-        System.out.println("Aaron Stephens & Chad Condon - Homework 3");
+        LRLTree tree = new LRLTree(new File(null));
     }
 }

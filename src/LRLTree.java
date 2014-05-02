@@ -26,9 +26,8 @@ public class LRLTree {
     /**
      * The beginning of the generated Java code.
      */
-    private static String JAVA_HEAD = "public class JavaCode {\n"
+    private static final String JAVA_HEAD = "public class JavaCode {\n"
             + "    public static void main(String[] args) {\n";
-
     /**
      * The root <code>Node</code> of the binary tree.
      */
@@ -37,10 +36,11 @@ public class LRLTree {
     /**
      * Creates a binary tree to hold a series of reverse polish notation
      * operations as described in LRL.
-     * @param source The plain text file containing the LRL source code.
+     * @param source plain text file containing the LRL source code
      * @throws FileNotFoundException 
      */
     public LRLTree(final File source) throws FileNotFoundException {
+        root = new Node(null);
         List<String> code = loadCode(source);
         loadNode(root, code);
     }
@@ -48,7 +48,7 @@ public class LRLTree {
     /**
      * Executes the operations contained in the tree and returns the
      * evaluated value.
-     * @return The evaluated value of the tree. 
+     * @return evaluated value of the tree
      */
     public int evaluate() {
         return evaluate(root);
@@ -57,7 +57,7 @@ public class LRLTree {
     /**
      * Generates the LRL code corresponding to the operations described in
      * the tree.
-     * @return The LRL code.
+     * @return LRL code
      */
     public String toLRL() {
         return root.toLRL();
@@ -66,7 +66,7 @@ public class LRLTree {
     /**
      * Generates Java code corresponding to the operations described in
      * the tree.
-     * @return Java code.
+     * @return Java code
      */
     public String toJava() {
         String java = JAVA_HEAD;
@@ -81,7 +81,7 @@ public class LRLTree {
     /**
      * Executes the operations contained in the given <code>Node</code> and
      * returns the evaluated value.
-     * @return The evaluated value of the <code>Node</code>. 
+     * @return evaluated value of the <code>Node</code>
      */
     private int evaluate(final Node node) {
 
@@ -166,7 +166,7 @@ public class LRLTree {
     /**
      * Gets the value of the given LRL variable.
      * @param name The name of the variable.
-     * @return The value of the variable.
+     * @return variable value
      */
     private int getValue(final String name) {
         // TODO retrieve variable value
@@ -196,17 +196,17 @@ public class LRLTree {
 
     /**
      * Populates a <code>Node</code> with the expressions described in LRL code.
-     * @param node The <code>Node</code> to be populated.
-     * @param code A <code>List</code> of LRL commands.
+     * @param node <code>Node</code> to be populated
+     * @param code <code>List</code> of LRL commands
      */
     private void loadNode(Node node, List<String> code) {
-        int splitIndex = 0;
+        int splitIndex;
 
         if (code.get(0).equals("(")) {
             code.remove(0);
         }
 
-        node.setData(code.get(0));
+        node = new Node(code.get(0));
         code.remove(0);
 
         splitIndex = getSplitIndex(code);
@@ -223,22 +223,22 @@ public class LRLTree {
     /**
      * Finds the index of the division between two subexpressions in a
      * <code>List</code> of LRL commands.
-     * @param code A <code>List</code> of LRL commands.
-     * @return The index of the division between two subexpressions
+     * @param code <code>List</code> of LRL commands
+     * @return index of the division between two subexpressions
      */
     private int getSplitIndex(List<String> code) {
         int index = 0;
-        int openParens = 0;
-        
+        int openParentheses = 0;
+
         for (String element : code) {
 
             if (element.equals("(")) {
-                openParens++;
+                openParentheses++;
             } else if (element.equals(")")) {
-                openParens--;
+                openParentheses--;
             }
 
-            if (openParens == 0)
+            if (openParentheses == 0)
                 break;
             index++;
         }

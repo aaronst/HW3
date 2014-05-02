@@ -36,12 +36,12 @@ public class LRLTree {
     /**
      * The root <code>Node</code> of the binary tree.
      */
-    private Node root;
+    private final Node root;
 
     /**
      * The <code>Map</code> containing all of the variables their values.
      */
-    private Map<String, Integer> environment;
+    private final Map<String, Integer> environment;
 
     /**
      * Creates a binary tree to hold a series of reverse polish notation
@@ -203,7 +203,7 @@ public class LRLTree {
      * @param node <code>Node</code> to be populated
      * @param code <code>List</code> of LRL commands
      */
-    private void loadNode(Node node, List<String> code) {
+    private void loadNode(@SuppressWarnings("ParameterCanBeLocal") Node node, List<String> code) {
         int splitIndex;
 
         if (code.get(0).equals("(")) {

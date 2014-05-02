@@ -102,7 +102,7 @@ public class Node {
      * @param data This represents either an operator, a variable, or an
      * integer. 
      */
-    public void setData(final String data) {
+    void setData(final String data) {
         this.data = data;
     }
 
@@ -110,7 +110,7 @@ public class Node {
      * Gets the data in the <code>Node</code>.
      * @return The data in the <code>Node</code>.
      */
-    public String getData() {
+    String getData() {
         return data;
     }
 
@@ -118,7 +118,7 @@ public class Node {
      * Sets the first subexpression.
      * @param left The first subexpression.
      */
-    public void setLeft(final Node left) {
+    void setLeft(final Node left) {
         this.left = left;
     }
 
@@ -134,7 +134,7 @@ public class Node {
      * Sets the second subexpression.
      * @param right The second subexpression.
      */
-    public void setRight(final Node right) {
+    void setRight(final Node right) {
         this.right = right;
     }
 
@@ -144,35 +144,6 @@ public class Node {
      */
     public Node getRight() {
         return right;
-    }
-
-    /**
-     * Returns <code>true</code> if, and only if, the <code>Node</code>
-     * represents an integer constant.
-     * @return <code>true</code> if the <code>Node</code> represents an
-     * integer constant, otherwise <code>false</code>.
-     */
-    public boolean isInteger() {
-        boolean result;
-
-        try {
-            Integer.parseInt(getData());
-            result = true;
-        } catch (NumberFormatException exception) {
-            result = false;
-        }
-
-        return result;
-    }
-
-    /**
-     * Returns <code>true</code> if, and only if, the <code>Node</code>
-     * represents a variable.
-     * @return <code>true</code> if the <code>Node</code> represents a
-     * variable, otherwise <code>false</code>.
-     */
-    public boolean isVariable() {
-        return !isOperation() && Character.isLetter(data.charAt(0));
     }
 
     /**

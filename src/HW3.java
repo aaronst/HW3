@@ -26,5 +26,8 @@ public class HW3 {
 
         System.out.println("\n====The Java Code====\n");
         System.out.println(tree.toJava());
+
+        System.out.println("\n====The Evaluation====");
+        System.out.println(tree.evaluate());
     }
 }

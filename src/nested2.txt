@@ -1,0 +1,20 @@
+( block
+    ( = i 10 )
+    ( while 
+       ( < i 20 )
+       ( block
+          ( if ( == ( / i 2 ) ( / ( + i 1 ) 2 ) )
+               ( block
+                   ( = j 1 )
+                   ( while ( < j 5 )
+                       ( block 
+                          ( print ( * i j ) ) 
+                          ( = j ( + j 1 ) )
+                       )
+                   ) 
+               )
+          ) 
+          ( = i ( + i 1 ) )
+       )
+    )
+)

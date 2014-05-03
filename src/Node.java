@@ -9,9 +9,9 @@
  * 
  * @custom.instruct John Mayer, Ph.D.
  * @custom.course TCSS 342 Data Structures Spring 2014
- * @custom.due 2014-05-07
+ * @custom.due 2014-05-06
  */
-public class Node {
+class Node {
 
     /**
      * The LRL addition operator.
@@ -88,28 +88,63 @@ public class Node {
 
     /**
      * Creates a binary node representing an LRL expression.
-     * @param data This must represent either an operator, a variable, or an
-     * integer. 
      */
-    public Node(String data) {
-        setData(data);
+    public Node() {
+        setData(null);
         setLeft(null);
         setRight(null);
+    }
+
+    /**
+     * Sets the data in the <code>Node</code>.
+     *
+     * @param data This represents either an operator, a variable, or an
+     *             integer.
+     */
+    void setData(final String data) {
+        this.data = data;
+    }
+
+    /**
+     * Gets the data in the <code>Node</code>.
+     *
+     * @return The data in the <code>Node</code>.
+     */
+    String getData() {
+        return data;
+    }
+
+    /**
+     * Sets the first subexpression.
+     *
+     * @param leftNode The first subexpression.
+     */
+    void setLeft(Node leftNode) {
+        this.left = leftNode;
     }
 
     /**
      * Returns the first subexpression.
      * @return The first subexpression.
      */
-    public Node getLeft() {
+    Node getLeft() {
         return left;
+    }
+
+    /**
+     * Sets the second subexpression.
+     *
+     * @param rightNode The second subexpression.
+     */
+    void setRight(Node rightNode) {
+        this.right = rightNode;
     }
 
     /**
      * Returns the second subexpression.
      * @return The second subexpression.
      */
-    public Node getRight() {
+    Node getRight() {
         return right;
     }
 
@@ -119,7 +154,7 @@ public class Node {
      * @return <code>true</code> if the <code>Node</code> represents an
      * operation, otherwise <code>false</code>.
      */
-    public boolean isOperation() {
+    boolean isOperation() {
         switch(data) {
         case ADD:
         case SUBTRACT:
@@ -144,7 +179,7 @@ public class Node {
      * @return <code>true</code> if the <code>Node</code> represents a
      * print operation, otherwise <code>false</code>.
      */
-    public boolean isPrint() {
+    boolean isPrint() {
         return data.equals(PRINT);
     }
     
@@ -153,7 +188,7 @@ public class Node {
      * </code>Node</code>
      * @return The Java code.
      */
-    public String toJava() {
+    String toJava() {
         String java;
 
         switch (getData()) {
@@ -200,7 +235,7 @@ public class Node {
      * in the <code>Node</code>.
      * @return The LRL code.
      */
-    public String toLRL() {
+    String toLRL() {
         String lrl;
 
         if (isPrint()) {
@@ -213,43 +248,6 @@ public class Node {
         }
 
         return lrl;
-    }
-
-    /**
-     * Sets the data in the <code>Node</code>.
-     *
-     * @param data This represents either an operator, a variable, or an
-     *             integer.
-     */
-    void setData(final String data) {
-        this.data = data;
-    }
-
-    /**
-     * Gets the data in the <code>Node</code>.
-     *
-     * @return The data in the <code>Node</code>.
-     */
-    String getData() {
-        return data;
-    }
-
-    /**
-     * Sets the first subexpression.
-     *
-     * @param leftNode The first subexpression.
-     */
-    void setLeft(Node leftNode) {
-        this.left = leftNode;
-    }
-
-    /**
-     * Sets the second subexpression.
-     *
-     * @param rightNode The second subexpression.
-     */
-    void setRight(Node rightNode) {
-        this.right = rightNode;
     }
 
 }

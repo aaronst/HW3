@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
  *
  * @custom.instruct John Mayer, Ph.D.
  * @custom.course TCSS 342 Data Structures Spring 2014
- * @custom.due 2014-05-07
+ * @custom.due 2014-05-06
  */
 public class HW3 {
     

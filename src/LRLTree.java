@@ -20,7 +20,7 @@ import java.util.Scanner;
  * @custom.assign Binary Trees: LRL
  * @custom.instruct John Mayer, Ph.D.
  * @custom.course TCSS 342 Data Structures Spring 2014
- * @custom.due 2014-05-07
+ * @custom.due 2014-05-06
  */
 public class LRLTree {
 
@@ -50,7 +50,7 @@ public class LRLTree {
      * @throws FileNotFoundException
      */
     public LRLTree(final File source) throws FileNotFoundException {
-        root = new Node(null);
+        root = new Node();
         environment = new HashMap<>();
         List<String> code = loadCode(source);
 
@@ -219,11 +219,11 @@ public class LRLTree {
         code.remove(0);
         splitIndex = getSplitIndex(code);
         if (node.isOperation()) {
-            node.setLeft(new Node(null));
+            node.setLeft(new Node());
             loadNode(node.getLeft(), new LinkedList<>(code.subList(0,
                     splitIndex)));
             if (!node.isPrint()) {
-                node.setRight(new Node(null));
+                node.setRight(new Node());
                 loadNode(node.getRight(),
                         new LinkedList<>(code.subList(splitIndex,
                                 code.size() - 1))

@@ -209,7 +209,7 @@ public class LRLTree {
      * @param node <code>Node</code> to be populated
      * @param code <code>List</code> of LRL commands
      */
-    private void loadNode(@SuppressWarnings("ParameterCanBeLocal") Node node, List<String> code) {
+    private void loadNode(Node node, List<String> code) {
         int splitIndex;
 
         if (code.get(0).equals("(")) {
@@ -271,10 +271,8 @@ public class LRLTree {
             for (String variable : environment.keySet()) {
                 declarations += INT_DECLARE + variable + ";\n";
             }
-            declarations += "\n";
         }
 
         return declarations;
     }
 }
-

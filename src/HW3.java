@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * <code>LRLTree</code> test runner.
@@ -16,18 +17,21 @@ import java.io.FileNotFoundException;
 public class HW3 {
     
     public static void main(String[] args) throws FileNotFoundException {
+        Scanner scanner = new Scanner(System.in);
+        String filename;
 
-        System.out.println("Aaron Stephens & Chad Condon - Homework 3");
-        // The file chosen can be changed out with any of the others
-        LRLTree tree = new LRLTree(new File("misc.txt"));
-
-        System.out.println("\n====The LRL Code====\n");
-        System.out.println(tree.toLRL());
-
-        System.out.println("\n====The Java Code====\n");
-        System.out.println(tree.toJava());
-
-        System.out.println("\n====The Evaluation====\n");
-        tree.evaluate();
+        while (true) {
+            System.out.print("Enter file name: ");
+            filename = scanner.nextLine();
+            try {
+                LRLTree tree = new LRLTree(new File(filename));
+                System.out.println(tree.toLRL());
+                tree.evaluate();
+                System.out.println(tree.toJava());
+                break;
+            } catch (FileNotFoundException exception) {
+                System.out.println(filename + " is not a valid file.");
+            }
+        }
     }
 }

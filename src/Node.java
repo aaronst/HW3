@@ -91,35 +91,10 @@ public class Node {
      * @param data This must represent either an operator, a variable, or an
      * integer. 
      */
-    public Node(final String data) {
+    public Node(String data) {
         setData(data);
         setLeft(null);
         setRight(null);
-    }
-
-    /**
-     * Sets the data in the <code>Node</code>.
-     * @param data This represents either an operator, a variable, or an
-     * integer. 
-     */
-    void setData(final String data) {
-        this.data = data;
-    }
-
-    /**
-     * Gets the data in the <code>Node</code>.
-     * @return The data in the <code>Node</code>.
-     */
-    String getData() {
-        return data;
-    }
-
-    /**
-     * Sets the first subexpression.
-     * @param left The first subexpression.
-     */
-    void setLeft(final Node left) {
-        this.left = left;
     }
 
     /**
@@ -128,14 +103,6 @@ public class Node {
      */
     public Node getLeft() {
         return left;
-    }
-
-    /**
-     * Sets the second subexpression.
-     * @param right The second subexpression.
-     */
-    void setRight(final Node right) {
-        this.right = right;
     }
 
     /**
@@ -209,7 +176,7 @@ public class Node {
         case Node.WHILE:
             java = getData() + " ("
                     + getLeft().toJava() + ") {\n"
-                    + getRight().toJava() + "\n}\n";
+                    + getRight().toJava() + "}\n";
             break;
         case Node.BLOCK:
             java = getLeft().toJava() + getRight().toJava();
@@ -243,4 +210,42 @@ public class Node {
 
         return lrl;
     }
+
+    /**
+     * Sets the data in the <code>Node</code>.
+     *
+     * @param data This represents either an operator, a variable, or an
+     *             integer.
+     */
+    void setData(final String data) {
+        this.data = data;
+    }
+
+    /**
+     * Gets the data in the <code>Node</code>.
+     *
+     * @return The data in the <code>Node</code>.
+     */
+    String getData() {
+        return data;
+    }
+
+    /**
+     * Sets the first subexpression.
+     *
+     * @param leftNode The first subexpression.
+     */
+    void setLeft(Node leftNode) {
+        this.left = leftNode;
+    }
+
+    /**
+     * Sets the second subexpression.
+     *
+     * @param rightNode The second subexpression.
+     */
+    void setRight(Node rightNode) {
+        this.right = rightNode;
+    }
+
 }

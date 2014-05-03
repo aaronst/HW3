@@ -9,10 +9,10 @@ import java.util.Scanner;
 /**
  * A binary tree structure to hold a series of reverse polish notation
  * operations as described in LRL. Provides methods for:
- *   Creating a tree from an LRL file.
- *   Executing the operations held in the tree and evaluating its value.
- *   Generating the tree's equivalent LRL code.
- *   Generating the tree's equivalent Java code.
+ *  - Creating a tree from an LRL file.
+ *  - Executing the operations held in the tree and evaluating its value.
+ *  - Generating the tree's equivalent LRL code.
+ *  - Generating the tree's equivalent Java code.
  * 
  * @custom.assign Binary Trees: LRL
  * @author Chad Condon
@@ -29,7 +29,7 @@ public class LRLTree {
      * The beginning of the generated Java code.
      */
     private static final String JAVA_HEAD = "public class JavaCode {\n"
-            + "    public static void main(String[] args) {\n";
+            + "public static void main(String[] args) {\n";
 
     private static final String INT_DECLARE = "int ";
 
@@ -54,8 +54,8 @@ public class LRLTree {
         environment = new HashMap<>();
         List<String> code = loadCode(source);
 
-        loadEnvironment(root);
         loadNode(root, code);
+        loadEnvironment(root);
     }
 
     /**
@@ -85,7 +85,7 @@ public class LRLTree {
         String java = JAVA_HEAD;
 
         java += javaDeclarations();
-        java += root.toJava() + "}";
+        java += root.toJava() + "}\n}";
 
         return java;
     }
@@ -95,6 +95,7 @@ public class LRLTree {
      * all the variables and their values.
      */
     private void loadEnvironment(Node current) {
+        System.out.println("loadEnvoronment checking node: " + current.getData());
         if (current.getData().equals(Node.ASSIGN)) {
             environment.put(current.getLeft().getData(), 0);
             loadEnvironment(current.getRight());
@@ -209,14 +210,19 @@ public class LRLTree {
         if (code.get(0).equals("(")) {
             code.remove(0);
         }
-        node = new Node(code.get(0));
+        node.setData(code.get(0));
         code.remove(0);
         splitIndex = getSplitIndex(code);
         if (node.isOperation()) {
-            loadNode(node.getLeft(),code.subList(0, splitIndex));
+            node.setLeft(new Node(null));
+            loadNode(node.getLeft(), new LinkedList<>(code.subList(0,
+                    splitIndex)));
             if (!node.isPrint()) {
+                node.setRight(new Node(null));
                 loadNode(node.getRight(),
-                        code.subList(splitIndex, code.size() - 1));
+                        new LinkedList<>(code.subList(splitIndex,
+                                code.size() - 1))
+                        );
             }
         }
     }
@@ -243,8 +249,8 @@ public class LRLTree {
                 break;
             index++;
         }
-        
-        return index;
+
+        return index + 1;
     }
 
     /**
@@ -264,3 +270,4 @@ public class LRLTree {
         return declarations;
     }
 }
+

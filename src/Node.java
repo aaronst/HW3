@@ -161,6 +161,10 @@ public class Node {
         case Node.SUBTRACT:
         case Node.MULTIPLY:
         case Node.DIVIDE:
+            java = "(" + getLeft().toJava() + " "
+                    + getData() + " "
+                    + getRight().toJava() + ")";
+            break;
         case Node.ASSIGN:
             java = getLeft().toJava() + " "
                     + getData() + " "

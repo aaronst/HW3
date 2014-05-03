@@ -188,8 +188,8 @@ public class LRLTree {
      * Creates a <code>List</code> of LRL commands contained in a source
      * <code>File</code>.
      *
-     * @param file The LRL source.
-     * @return A <code>List</code> of LRL commands.
+     * @param file LRL source
+     * @return <code>List</code> of LRL commands
      * @throws FileNotFoundException
      */
     private List<String> loadCode(final File file)
@@ -273,6 +273,7 @@ public class LRLTree {
             for (String variable : environment.keySet()) {
                 declarations += INT_DECLARE + variable + ";\n";
             }
+            declarations += "\n";
         }
 
         return declarations;

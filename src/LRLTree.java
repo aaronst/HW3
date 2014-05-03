@@ -61,11 +61,9 @@ public class LRLTree {
     /**
      * Executes the operations contained in the tree and returns the
      * evaluated value.
-     *
-     * @return evaluated value of the tree
      */
-    public int evaluate() {
-        return evaluate(root);
+    public void evaluate() {
+        evaluate(root);
     }
 
     /**

@@ -19,7 +19,7 @@ public class HW3 {
 
         System.out.println("Aaron Stephens & Chad Condon - Homework 3");
         // The file chosen can be changed out with any of the others
-        LRLTree tree = new LRLTree(new File("nestedWhile.txt"));
+        LRLTree tree = new LRLTree(new File("misc.txt"));
 
         System.out.println("\n====The LRL Code====\n");
         System.out.println(tree.toLRL());
@@ -27,8 +27,7 @@ public class HW3 {
         System.out.println("\n====The Java Code====\n");
         System.out.println(tree.toJava());
 
-        System.out.println("\n====The Evaluation====");
+        System.out.println("\n====The Evaluation====\n");
         tree.evaluate();
     }
 }
-

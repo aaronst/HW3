@@ -9,16 +9,15 @@ import java.util.Scanner;
 /**
  * A binary tree structure to hold a series of reverse polish notation
  * operations as described in LRL. Provides methods for:
- *  - Creating a tree from an LRL file.
- *  - Executing the operations held in the tree and evaluating its value.
- *  - Generating the tree's equivalent LRL code.
- *  - Generating the tree's equivalent Java code.
- * 
- * @custom.assign Binary Trees: LRL
+ * - Creating a tree from an LRL file.
+ * - Executing the operations held in the tree and evaluating its value.
+ * - Generating the tree's equivalent LRL code.
+ * - Generating the tree's equivalent Java code.
+ *
  * @author Chad Condon
  * @author Aaron Stephens
  * @version 0.1
- * 
+ * @custom.assign Binary Trees: LRL
  * @custom.instruct John Mayer, Ph.D.
  * @custom.course TCSS 342 Data Structures Spring 2014
  * @custom.due 2014-05-07
@@ -46,8 +45,9 @@ public class LRLTree {
     /**
      * Creates a binary tree to hold a series of reverse polish notation
      * operations as described in LRL.
+     *
      * @param source plain text file containing the LRL source code
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
     public LRLTree(final File source) throws FileNotFoundException {
         root = new Node(null);
@@ -61,6 +61,7 @@ public class LRLTree {
     /**
      * Executes the operations contained in the tree and returns the
      * evaluated value.
+     *
      * @return evaluated value of the tree
      */
     public int evaluate() {
@@ -70,6 +71,7 @@ public class LRLTree {
     /**
      * Generates the LRL code corresponding to the operations described in
      * the tree.
+     *
      * @return LRL code
      */
     public String toLRL() {
@@ -79,6 +81,7 @@ public class LRLTree {
     /**
      * Generates Java code corresponding to the operations described in
      * the tree.
+     *
      * @return Java code
      */
     public String toJava() {
@@ -95,7 +98,6 @@ public class LRLTree {
      * all the variables and their values.
      */
     private void loadEnvironment(Node current) {
-        System.out.println("loadEnvoronment checking node: " + current.getData());
         if (current.getData().equals(Node.ASSIGN)) {
             environment.put(current.getLeft().getData(), 0);
             loadEnvironment(current.getRight());
@@ -110,49 +112,50 @@ public class LRLTree {
     /**
      * Executes the operations contained in the given <code>Node</code> and
      * returns the evaluated value.
+     *
      * @return evaluated value of the <code>Node</code>
      */
     private int evaluate(final Node node) {
         switch (node.getData()) {
-        case Node.ADD:
-            return evaluate(node.getLeft()) + evaluate(node.getRight());
-        case Node.SUBTRACT:
-            return evaluate(node.getLeft()) - evaluate(node.getRight());
-        case Node.MULTIPLY:
-            return evaluate(node.getLeft()) * evaluate(node.getRight());
-        case Node.DIVIDE:
-            return evaluate(node.getLeft()) / evaluate(node.getRight());
-        case Node.EQUAL:
-            if (evaluate(node.getLeft()) == evaluate(node.getRight())) {
-                return 1;
-            }
-            return 0;
-        case Node.LESS_THAN:
-            if (evaluate(node.getLeft()) < evaluate(node.getRight())) {
-                return 1;
-            }
-            return 0;
-        case Node.ASSIGN:
-            setVariable(node.getLeft().getData(),
-                    evaluate(node.getRight()));
-            return 0;
-        case Node.IF:
-            if (evaluate(node.getLeft()) == 1) {
+            case Node.ADD:
+                return evaluate(node.getLeft()) + evaluate(node.getRight());
+            case Node.SUBTRACT:
+                return evaluate(node.getLeft()) - evaluate(node.getRight());
+            case Node.MULTIPLY:
+                return evaluate(node.getLeft()) * evaluate(node.getRight());
+            case Node.DIVIDE:
+                return evaluate(node.getLeft()) / evaluate(node.getRight());
+            case Node.EQUAL:
+                if (evaluate(node.getLeft()) == evaluate(node.getRight())) {
+                    return 1;
+                }
+                return 0;
+            case Node.LESS_THAN:
+                if (evaluate(node.getLeft()) < evaluate(node.getRight())) {
+                    return 1;
+                }
+                return 0;
+            case Node.ASSIGN:
+                setVariable(node.getLeft().getData(),
+                        evaluate(node.getRight()));
+                return 0;
+            case Node.IF:
+                if (evaluate(node.getLeft()) == 1) {
+                    evaluate(node.getRight());
+                }
+                return 0;
+            case Node.WHILE:
+                while (evaluate(node.getLeft()) == 1) {
+                    evaluate(node.getRight());
+                }
+                return 0;
+            case Node.BLOCK:
+                evaluate(node.getLeft());
                 evaluate(node.getRight());
-            }
-            return 0;
-        case Node.WHILE:
-            while (evaluate(node.getLeft()) == 1) {
-                evaluate(node.getRight());
-            }
-            return 0;
-        case Node.BLOCK:
-            evaluate(node.getLeft());
-            evaluate(node.getRight());
-            return 0;
-        case Node.PRINT:
-            System.out.println(evaluate(node.getLeft()));
-            return 0;
+                return 0;
+            case Node.PRINT:
+                System.out.println(evaluate(node.getLeft()));
+                return 0;
         }
         try {
             return Integer.parseInt(node.getData());
@@ -163,8 +166,9 @@ public class LRLTree {
 
     /**
      * Sets the value of the given LRL variable.
-     * @param name The name of the variable.
-     * @param value The value to be set, 
+     *
+     * @param name  The name of the variable.
+     * @param value The value to be set,
      */
     private void setVariable(final String name, final int value) {
         environment.put(name, value);
@@ -172,6 +176,7 @@ public class LRLTree {
 
     /**
      * Gets the value of the given LRL variable.
+     *
      * @param name The name of the variable.
      * @return variable value
      */
@@ -182,9 +187,10 @@ public class LRLTree {
     /**
      * Creates a <code>List</code> of LRL commands contained in a source
      * <code>File</code>.
+     *
      * @param file The LRL source.
      * @return A <code>List</code> of LRL commands.
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
     private List<String> loadCode(final File file)
             throws FileNotFoundException {
@@ -201,6 +207,7 @@ public class LRLTree {
 
     /**
      * Populates a <code>Node</code> with the expressions described in LRL code.
+     *
      * @param node <code>Node</code> to be populated
      * @param code <code>List</code> of LRL commands
      */
@@ -226,10 +233,11 @@ public class LRLTree {
             }
         }
     }
-    
+
     /**
      * Finds the index of the division between two subexpressions in a
      * <code>List</code> of LRL commands.
+     *
      * @param code <code>List</code> of LRL commands
      * @return index of the division between two subexpressions
      */

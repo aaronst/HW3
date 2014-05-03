@@ -28,6 +28,6 @@ public class HW3 {
         System.out.println(tree.toJava());
 
         System.out.println("\n====The Evaluation====\n");
-        System.out.println(tree.evaluate());
+        tree.evaluate();
     }
 }

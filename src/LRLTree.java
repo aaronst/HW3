@@ -139,12 +139,12 @@ public class LRLTree {
                         evaluate(node.getRight()));
                 return 0;
             case Node.IF:
-                if (evaluate(node.getLeft()) == 1) {
+                if (evaluate(node.getLeft()) != 0) {
                     evaluate(node.getRight());
                 }
                 return 0;
             case Node.WHILE:
-                while (evaluate(node.getLeft()) == 1) {
+                while (evaluate(node.getLeft()) != 0) {
                     evaluate(node.getRight());
                 }
                 return 0;

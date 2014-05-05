@@ -1,0 +1,19 @@
+( block
+    ( block
+        ( = i 1 )
+        ( = j 1 )
+    )
+    ( while
+        ( < i 100 )
+        ( block
+            ( print i )
+            ( block
+                ( = temp ( + i j ) )
+                ( block 
+		    ( = i j )
+		    ( = j temp )
+		)
+	    )
+	)
+    )
+)

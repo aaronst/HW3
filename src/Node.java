@@ -1,12 +1,12 @@
 /**
  * A node for the LRL binary tree structure.
  * Each node represents a (sub)expression within an LRL program.
- * 
+ *
  * @custom.assign Binary Trees: LRL
  * @author Chad Condon
  * @author Aaron Stephens
  * @version 0.1
- * 
+ *
  * @custom.instruct John Mayer, Ph.D.
  * @custom.course TCSS 342 Data Structures Spring 2014
  * @custom.due 2014-05-06
@@ -17,52 +17,52 @@ class Node {
      * The LRL addition operator.
      */
     public static final String ADD = "+";
-    
+
     /**
      * The LRL subtraction operator.
      */
     public static final String SUBTRACT = "-";
-    
+
     /**
      * The LRL multiplication operator.
      */
     public static final String MULTIPLY = "*";
-    
+
     /**
      * The LRL division operator.
      */
     public static final String DIVIDE = "/";
-    
+
     /**
      * The LRL equality operator.
      */
     public static final String EQUAL = "==";
-    
+
     /**
      * The LRL inequality operator.
      */
     public static final String LESS_THAN = "<";
-    
+
     /**
      * The LRL assignment operator.
      */
     public static final String ASSIGN = "=";
-    
+
     /**
      * The LRL conditional operator.
      */
     public static final String IF = "if";
-    
+
     /**
      * The LRL loop operator.
      */
     public static final String WHILE = "while";
-    
+
     /**
      * The LRL block operator.
      */
     public static final String BLOCK = "block";
-    
+
     /**
      * The LRL print operator.
      */
@@ -70,7 +70,7 @@ class Node {
 
     /**
      * The data contained in the <code>Node</code>. This must represent
-     * either an operator, a variable, or an integer. 
+     * either an operator, a variable, or an integer.
      */
     private String data;
 
@@ -182,7 +182,7 @@ class Node {
     boolean isPrint() {
         return data.equals(PRINT);
     }
-    
+
     /**
      * Creates Java code corresponding the the operations described in the
      * </code>Node</code>
@@ -229,7 +229,7 @@ class Node {
 
         return java;
     }
-    
+
     /**
      * Creates a string of LRL code representing the operations described
      * in the <code>Node</code>.

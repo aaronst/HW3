@@ -63,6 +63,7 @@ public class LRLTree {
      * evaluated value.
      */
     public void evaluate() {
+        resetEnvironment();
         evaluate(root);
     }
 
@@ -180,6 +181,15 @@ public class LRLTree {
      */
     private int getVariable(final String name) {
         return environment.get(name);
+    }
+
+    /**
+     * Resets the value of each variable in the environment to zero.
+     */
+    private void resetEnvironment() {
+        for (String key : environment.keySet()) {
+            setVariable(key, 0);
+        }
     }
 
     /**

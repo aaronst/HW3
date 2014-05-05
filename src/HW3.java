@@ -18,20 +18,21 @@ public class HW3 {
     
     public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
+        LRLTree tree = null;
         String filename;
 
-        while (true) {
+        while (tree == null) {
             System.out.print("Enter file name: ");
             filename = scanner.nextLine();
             try {
-                LRLTree tree = new LRLTree(new File(filename));
-                System.out.println(tree.toLRL());
-                tree.evaluate();
-                System.out.println(tree.toJava());
-                break;
+                tree = new LRLTree(new File(filename));
             } catch (FileNotFoundException exception) {
                 System.out.println(filename + " is not a valid file.");
             }
         }
+
+        System.out.println(tree.toLRL());
+        tree.evaluate();
+        System.out.println(tree.toJava());
     }
 }

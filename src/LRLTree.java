@@ -234,7 +234,8 @@ public class LRLTree {
                     splitIndex)));
             if (!node.isPrint()) {
                 node.setRight(new Node());
-                loadNode(node.getRight(),
+                loadNode(
+                        node.getRight(),
                         new LinkedList<>(code.subList(splitIndex,
                                 code.size() - 1))
                         );

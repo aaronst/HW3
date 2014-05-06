@@ -10,10 +10,10 @@
             ( block
                 ( = temp ( + i j ) )
                 ( block 
-		    ( = i j )
-		    ( = j temp )
-		)
+		            ( = i j )
+		            ( = j temp )
+		        )
+	        )
 	    )
-	)
     )
 )
